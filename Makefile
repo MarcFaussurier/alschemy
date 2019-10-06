@@ -10,14 +10,14 @@
 #                                                         /   UNIV -           #
 #                                                | |  _  / ___ _ _   / |       #
 #    Created: 2019/10/06 11:23:52 by mfaussur    | |_| || / _ \ ' \  | |       #
-#    Updated: 2019/10/06 15:16:25 by mfaussur    |____\_, \___/_||_| |_|       #
+#    Updated: 2019/10/06 21:35:29 by mfaussur    |____\_, \___/_||_| |_|       #
 #                                                     /__/            .fr      #
 # **************************************************************************** #
 
 APP					= compiler
 gcc					= gcc
 LD					= gcc
-CFLAGS				= -Wall -pipe
+CFLAGS				= -Wall -Wextra -Werror -pipe -I./include
 OFLAGS				= -Werror -Wextra -Wall -c -I./include
 SOURCES				= $(wildcard source/*.c)
 OBJECTS				= $(SOURCES:.c=.o)
@@ -53,6 +53,9 @@ fclean:
 
 rebuild:			clean fclean all
 
-.PHONY :			clean
+run:
+	./$(APP)
+
+.PHONY :			clean fclean run main
 
 .SILENT :			clean

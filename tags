@@ -1,0 +1,72 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	//
+%.o	Makefile	/^%.o:				%.c$/;"	t
+APP	Makefile	/^APP					= compiler$/;"	m
+CFLAGS	Makefile	/^CFLAGS				= -Wall -Wextra -Werror -pipe -I.\/include$/;"	m
+COMPILER_H	include/compiler.h	/^# define COMPILER_H$/;"	d
+DEBUG	Makefile	/^DEBUG				= no$/;"	m
+INTERPRETER_H	include/interpreter.h	/^# define INTERPRETER_H$/;"	d
+LD	Makefile	/^LD					= gcc$/;"	m
+LEXER_H	include/lexer.h	/^# define LEXER_H$/;"	d
+OBJECTS	Makefile	/^OBJECTS				= $(SOURCES:.c=.o)$/;"	m
+OFLAGS	Makefile	/^OFLAGS				= -Werror -Wextra -Wall -c -I.\/include$/;"	m
+OPTIMIZATION	Makefile	/^	OPTIMIZATION	= -O0$/;"	m
+OPTIMIZATION	Makefile	/^OPTIMIZATION		= -O3$/;"	m
+PARSER_H	include/parser.h	/^# define PARSER_H$/;"	d
+PEDANTIC	Makefile	/^PEDANTIC			= no$/;"	m
+PROFILE	Makefile	/^PROFILE				= no$/;"	m
+SOURCES	Makefile	/^SOURCES				= $(wildcard source\/*.c)$/;"	m
+all	Makefile	/^all:				main$/;"	t
+call	include/lexer.h	/^                        call,$/;"	e	enum:e_token
+cell	include/parser.h	/^    void                **cell;$/;"	m	struct:s_cell	typeref:typename:void **
+cell	include/parser.h	/^}                       cell;$/;"	t	typeref:struct:s_cell
+clean	Makefile	/^clean:$/;"	t
+comment	include/lexer.h	/^    int                 comment;$/;"	m	struct:s_lexer_state	typeref:typename:int
+comments	include/lexer.h	/^    int                 comments;$/;"	m	struct:s_lexer_state	typeref:typename:int
+compile	source/compiler.c	/^char        *compile(cell *src)$/;"	f	typeref:typename:char *
+content	include/lexer.h	/^    char                *content;$/;"	m	struct:s_token	typeref:typename:char *
+current_token	include/lexer.h	/^    token               *current_token;$/;"	m	struct:s_lexer_state	typeref:typename:token *
+dump_tokens	source/lexer.c	/^void    dump_tokens(token **tokens)$/;"	f	typeref:typename:void
+e_token	include/lexer.h	/^typedef enum            e_token$/;"	g
+end	include/lexer.h	/^                        end,$/;"	e	enum:e_token
+eof	include/lexer.h	/^                        eof$/;"	e	enum:e_token
+escaped	include/lexer.h	/^    int                 escaped;$/;"	m	struct:s_lexer_state	typeref:typename:int
+fclean	Makefile	/^fclean:$/;"	t
+flush	source/lexer.c	/^void    flush(lexer_state *state)$/;"	f	typeref:typename:void
+flush_call	source/lexer.c	/^void    flush_call(lexer_state *state)$/;"	f	typeref:typename:void
+flush_char	source/lexer.c	/^void    flush_char(lexer_state *state)$/;"	f	typeref:typename:void
+flush_end	source/lexer.c	/^void    flush_end(lexer_state *state)$/;"	f	typeref:typename:void
+gcc	Makefile	/^gcc					= gcc$/;"	m
+i	include/lexer.h	/^    int                 i;$/;"	m	struct:s_lexer_state	typeref:typename:int
+identifier	include/lexer.h	/^                        identifier,$/;"	e	enum:e_token
+init_lexer_state	source/lexer.c	/^void    init_lexer_state(lexer_state *state, char *source)$/;"	f	typeref:typename:void
+init_token	source/lexer.c	/^void    init_token(token *in)$/;"	f	typeref:typename:void
+interpret	source/interpreter.c	/^cell            *interpret(cell *in)$/;"	f	typeref:typename:cell *
+label	include/parser.h	/^    char                *label;$/;"	m	struct:s_cell	typeref:typename:char *
+lex	source/lexer.c	/^token   **lex(char *source)$/;"	f	typeref:typename:token **
+lexer_state	include/lexer.h	/^}                       lexer_state;$/;"	t	typeref:struct:s_lexer_state
+main	Makefile	/^main:				$(OBJECTS)$/;"	t
+main	source/main.c	/^int     main()$/;"	f	typeref:typename:int
+nop	include/lexer.h	/^                        nop,$/;"	e	enum:e_token
+numeric	include/lexer.h	/^                        numeric,$/;"	e	enum:e_token
+output	include/lexer.h	/^    token               **output;$/;"	m	struct:s_lexer_state	typeref:typename:token **
+output_size	include/lexer.h	/^    int                 output_size;$/;"	m	struct:s_lexer_state	typeref:typename:int
+parse	source/parser.c	/^cell *parse(token **tokens)$/;"	f	typeref:typename:cell *
+quote	include/lexer.h	/^    int                 quote;$/;"	m	struct:s_lexer_state	typeref:typename:int
+quotes	include/lexer.h	/^    int                 quotes;$/;"	m	struct:s_lexer_state	typeref:typename:int
+rebuild	Makefile	/^rebuild:			clean fclean all$/;"	t
+run	Makefile	/^run:$/;"	t
+s_cell	include/parser.h	/^typedef struct          s_cell$/;"	s
+s_lexer_state	include/lexer.h	/^typedef struct          s_lexer_state$/;"	s
+s_token	include/lexer.h	/^typedef struct          s_token$/;"	s
+source	include/lexer.h	/^    char                *source;$/;"	m	struct:s_lexer_state	typeref:typename:char *
+string	include/lexer.h	/^                        string,$/;"	e	enum:e_token
+token	include/lexer.h	/^}                       token;$/;"	t	typeref:struct:s_token
+token_type	include/lexer.h	/^}                       token_type;$/;"	t	typeref:enum:e_token
+type	include/lexer.h	/^    token_type          type;$/;"	m	struct:s_token	typeref:typename:token_type
+value	include/parser.h	/^    long                value;$/;"	m	struct:s_cell	typeref:typename:long

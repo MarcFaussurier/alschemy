@@ -1,0 +1,18 @@
+./compiler
+call		
+id		define
+id		square
+call		
+id		lambda
+call		
+id		a
+end		
+call		
+id		*
+id		a
+id		a
+end		
+end		
+end		
+str		dwadawd
+num		1
