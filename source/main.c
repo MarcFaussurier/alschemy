@@ -10,10 +10,11 @@
 /*                                                        /   UNIV -          */
 /*                                               | |  _  / ___ _ _   / |      */
 /*   Created: 2019/10/06 11:58:20 by mfaussur    | |_| || / _ \ ' \  | |      */
-/*   Updated: 2019/10/06 20:43:07 by mfaussur    |____\_, \___/_||_| |_|      */
+/*   Updated: 2019/10/06 21:01:55 by mfaussur    |____\_, \___/_||_| |_|      */
 /*                                                    /__/            .fr     */
 /* ************************************************************************** */
 
+#include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -60,7 +61,6 @@ typedef struct          s_lexer_state
     int                 comments;
     int                 quote;
     int                 quotes;
-    int                 is_value;
 
 }                       lexer_state;
 
@@ -81,7 +81,6 @@ void    init_lexer_state(lexer_state *state, char *source)
     state->comments     = 0;
     state->quote        = 0;
     state->quotes       = 0;
-    state->is_value     = 0;
     state->i            = 0;
 
     init_token          (state->current_token);
@@ -89,14 +88,12 @@ void    init_lexer_state(lexer_state *state, char *source)
 
 void    flush_char(lexer_state *state)
 {
-    if (state->is_value)
-    {
+    int     len;
 
-    }
-    else
-    {
-
-    }
+    len = strlen(state->current_token->content);
+    state->current_token->content = realloc(state->current_token->content, (len + 2) * sizeof(char));
+    state->current_token->content[len] = state->source[state->i];
+    state->current_token->content[len + 1] = '\0';
 }
 
 void    flush(lexer_state *state)
@@ -248,8 +245,9 @@ token   **lex(char *source)
                     else
                     {
                         flush(&state);
+                        init_token(state.current_token);
                         state.current_token->type = string;
-                        state.is_value = 1;
+                        state.quotes = 1;
                     }
                     break;
                 case    '\'':
@@ -287,6 +285,11 @@ token   **lex(char *source)
                         state.comments = 1;
                     break;
                 case    '#':
+                    if (state.quote || state.quotes)
+                        flush_char(&state);
+                    if (state.i > 0 && source[state.i - 1] == '|')
+                        state.comments = 0;
+                    break;
                     break;
             /*\
             |*| Default
@@ -294,14 +297,9 @@ token   **lex(char *source)
                     if (state.comment || state.comments)
                         break;
                     else if ((source[state.i] <= '9' && source[state.i] >= '0'))
-                    {
-                        state.is_value = 1;
                         state.current_token->type = numeric;
-                    }
                     else if (!state.quote && !state.quotes)
-                    {
                         state.current_token->type = identifier;
-                    }
                     flush_char(&state);
                     break;
 
@@ -340,7 +338,7 @@ void    dump_tokens(token **tokens)
                 printf("id\t\t%s\n", tokens[i]->content);
                 break;
             case nop:
-                printf("nop\t\t\n");
+               // printf("nop\t\t\n");
                 break;
             default:
                 break;
@@ -374,7 +372,7 @@ char*    compile(cell *cell)
 
 int     main()
 {
-    char* input = "(define square (lambda (a) (* a a))) \"okok\" 025";
+    char* input = "(define square (lambda (a) (* a a))) \"dwadawd\" #| 025 |# 1; okok";
 
 
     compile(interpret(parse(lex(input))));
