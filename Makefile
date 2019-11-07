@@ -14,48 +14,35 @@
 #                                                     /__/            .fr      #
 # **************************************************************************** #
 
-APP					= compiler
-gcc					= gcc
-LD					= gcc
-CFLAGS				= -Wall -Wextra -Werror -pipe -I./include
-OFLAGS				= -Werror -Wextra -Wall -c -I./include
-SOURCES				= $(wildcard source/*.c)
-OBJECTS				= $(SOURCES:.c=.o)
-DEBUG				= no
-PROFILE				= no
-PEDANTIC			= no
-OPTIMIZATION		= -O3
-
-ifeq ($(DEBUG), yes)
-	CFLAGS			+= -g
-	OPTIMIZATION	= -O0
+CSRC			:=./lexer.c\
+	./main.c
+NAME		:= scheme
+DEBUG		:= 0
+RM			:= rm -rf
+AR			:= ar rcs
+CC			:= gcc
+CFLAGS		:= -Werror -Wextra -Wall -I./libft
+COBJ		:= $(CSRC:.c=.o)
+DEBUGFLAGS	:= -g -fsanitize=address -fno-omit-frame-pointer
+INC			:= ./
+CFLAGS		:= $(CFLAGS) -I$(INC)
+ifeq ($(DEBUG),1)
+CFLAGS		+= $(DEBUGFLAGS)
 endif
 
-ifeq ($(PROFILE), yes)
-	CFLAGS			+= -pg
-endif
-
-CFLAGS				+= $(OPTIMIZATION)
-
-all:				main
-
-main:				$(OBJECTS)
-	$(CC) $(OBJECTS) $(CFLAGS) -o $(APP)
-
-%.o:				%.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
+all:		$(NAME)
 clean:
-	rm -rf *.o
-
-fclean:
-	rm -f $(APP)
-
-rebuild:			clean fclean all
-
-run:
-	./$(APP)
-
-.PHONY :			clean fclean run main
-
-.SILENT :			clean
+	$(RM) $(COBJ) $(BONUSOBJ)
+fclean:		clean
+	$(RM) $(NAME)
+re:		fclean all
+norme:
+	norminette
+bonus:		$(COBJ) $(BONUSOBJ)
+	$(AR) $(NAME) $(COBJ) $(BONUSOBJ)
+%.o:	%.c		scheme.h
+	$(CC) $(CFLAGS) -c $< -o $@
+$(NAME):	$(COBJ)
+	$(CC) -o $(NAME) $(COBJ) -L./libft -lft
+.PHONY:
+		all fclean clean re bonus

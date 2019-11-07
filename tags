@@ -1,0 +1,138 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AR	Makefile	/^AR			:= ar rcs$/;"	m
+CC	Makefile	/^CC			:= gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS		:= $(CFLAGS) -I$(INC)$/;"	m
+CFLAGS	Makefile	/^CFLAGS		:= -Werror -Wextra -Wall -I.\/libft$/;"	m
+COBJ	Makefile	/^COBJ		:= $(CSRC:.c=.o)$/;"	m
+COMPILER_H	include/compiler.h	/^# define COMPILER_H$/;"	d
+CSRC	Makefile	/^CSRC			:=.\/lexer.c\\$/;"	m
+DEBUG	Makefile	/^DEBUG		:= 0$/;"	m
+DEBUGFLAGS	Makefile	/^DEBUGFLAGS	:= -g -fsanitize=address -fno-omit-frame-pointer$/;"	m
+INC	Makefile	/^INC			:= .\/$/;"	m
+INTERPRETER_H	include/interpreter.h	/^# define INTERPRETER_H$/;"	d
+LEXER_H	include/lexer.h	/^# define LEXER_H$/;"	d
+NAME	Makefile	/^NAME		:= scheme$/;"	m
+PARSER_H	include/parser.h	/^# define PARSER_H$/;"	d
+RM	Makefile	/^RM			:= rm -rf$/;"	m
+SCHEME_H	scheme.h	/^# define SCHEME_H$/;"	d
+_char	scheme.h	/^						_char,$/;"	e	enum:e_cell_type
+_double	scheme.h	/^						_double,$/;"	e	enum:e_cell_type
+_float	scheme.h	/^						_float,$/;"	e	enum:e_cell_type
+_function	scheme.h	/^						_function,$/;"	e	enum:e_cell_type
+_int	scheme.h	/^						_int,$/;"	e	enum:e_cell_type
+_long_double	scheme.h	/^						_long_double,$/;"	e	enum:e_cell_type
+_long_long	scheme.h	/^						_long_long,$/;"	e	enum:e_cell_type
+_ptr	scheme.h	/^						_ptr$/;"	e	enum:e_cell_type
+_short	scheme.h	/^						_short,$/;"	e	enum:e_cell_type
+_unsigned_char	scheme.h	/^						_unsigned_char,$/;"	e	enum:e_cell_type
+_unsigned_int	scheme.h	/^						_unsigned_int,$/;"	e	enum:e_cell_type
+_unsigned_long	scheme.h	/^						_unsigned_long,$/;"	e	enum:e_cell_type
+_unsigned_long_long	scheme.h	/^						_unsigned_long_long,$/;"	e	enum:e_cell_type
+_unsigned_short	scheme.h	/^						_unsigned_short,$/;"	e	enum:e_cell_type
+buffer	scheme.h	/^	t_cell				*buffer;$/;"	m	struct:s_parser_state
+call	include/lexer.h	/^                        call,$/;"	e	enum:e_token
+call	scheme.h	/^						call,$/;"	e	enum:e_token
+cell	include/parser.h	/^    void                **cell;$/;"	m	struct:s_cell
+cell	include/parser.h	/^}                       cell;$/;"	t	typeref:struct:s_cell
+childs	scheme.h	/^	t_list				*childs;$/;"	m	struct:s_cell
+comment	include/lexer.h	/^    int                 comment;$/;"	m	struct:s_lexer_state
+comment	scheme.h	/^	int					comment;$/;"	m	struct:s_lexer_state
+comments	include/lexer.h	/^    int                 comments;$/;"	m	struct:s_lexer_state
+comments	scheme.h	/^	int					comments;$/;"	m	struct:s_lexer_state
+content	include/lexer.h	/^    char                *content;$/;"	m	struct:s_token
+content	scheme.h	/^	char				*content;$/;"	m	struct:s_token
+current_token	include/lexer.h	/^    token               *current_token;$/;"	m	struct:s_lexer_state
+current_token	scheme.h	/^	t_token				*current_token;$/;"	m	struct:s_lexer_state
+double_num	scheme.h	/^	double				double_num;$/;"	m	struct:s_parser_state
+dump_tokens	lexer.c	/^void    dump_tokens(t_token **tokens)$/;"	f
+dump_tokens	source/lexer.c	/^void    dump_tokens(token **tokens)$/;"	f
+e_cell_type	scheme.h	/^typedef enum			e_cell_type$/;"	g
+e_token	include/lexer.h	/^typedef enum            e_token$/;"	g
+e_token	scheme.h	/^typedef enum			e_token$/;"	g
+end	include/lexer.h	/^                        end,$/;"	e	enum:e_token
+end	scheme.h	/^						end,$/;"	e	enum:e_token
+eof	include/lexer.h	/^                        eof$/;"	e	enum:e_token
+eof	scheme.h	/^						eof$/;"	e	enum:e_token
+escaped	include/lexer.h	/^    int                 escaped;$/;"	m	struct:s_lexer_state
+escaped	scheme.h	/^	int					escaped;$/;"	m	struct:s_lexer_state
+flush	lexer.c	/^void			flush(t_lexer_state *state)$/;"	f
+flush	source/lexer.c	/^void    flush(lexer_state *state)$/;"	f
+flush_call	lexer.c	/^void			flush_call(t_lexer_state *state)$/;"	f
+flush_call	source/lexer.c	/^void    flush_call(lexer_state *state)$/;"	f
+flush_char	lexer.c	/^void			flush_char(t_lexer_state *state)$/;"	f
+flush_char	source/lexer.c	/^void    flush_char(lexer_state *state)$/;"	f
+flush_end	lexer.c	/^void			flush_end(t_lexer_state *state)$/;"	f
+flush_end	source/lexer.c	/^void    flush_end(lexer_state *state)$/;"	f
+help	main.c	/^void			help()$/;"	f
+i	include/lexer.h	/^    int                 i;$/;"	m	struct:s_lexer_state
+i	scheme.h	/^	int					i;$/;"	m	struct:s_lexer_state
+i	scheme.h	/^	unsigned int		i;$/;"	m	struct:s_parser_state
+identifier	include/lexer.h	/^                        identifier,$/;"	e	enum:e_token
+identifier	scheme.h	/^						identifier,$/;"	e	enum:e_token
+identifier	scheme.h	/^	char				*identifier;$/;"	m	struct:s_cell
+init_lexer_state	lexer.c	/^void			init_lexer_state(t_lexer_state *state, char *source)$/;"	f
+init_lexer_state	source/lexer.c	/^void    init_lexer_state(lexer_state *state, char *source)$/;"	f
+init_parser_state	parser.c	/^static void		init_parser_state(t_parser_state *state)$/;"	f	file:
+init_token	lexer.c	/^void			init_token(t_token *in)$/;"	f
+init_token	source/lexer.c	/^void    init_token(token *in)$/;"	f
+is_flushable	scheme.h	/^	t_bool				is_flushable;$/;"	m	struct:s_parser_state
+label	include/parser.h	/^    char                *label;$/;"	m	struct:s_cell
+lex	lexer.c	/^t_token   **lex(char *source)$/;"	f
+lex	source/lexer.c	/^token   **lex(char *source)$/;"	f
+lexer_state	include/lexer.h	/^}                       lexer_state;$/;"	t	typeref:struct:s_lexer_state
+locked	scheme.h	/^	t_bool				locked;$/;"	m	struct:s_cell
+main	main.c	/^int				main(int argc, char **argv)$/;"	f
+main	source/main.c	/^int     main()$/;"	f
+nop	include/lexer.h	/^                        nop,$/;"	e	enum:e_token
+nop	scheme.h	/^						nop,$/;"	e	enum:e_token
+num	scheme.h	/^	long long			num;$/;"	m	struct:s_parser_state
+numeric	include/lexer.h	/^                        numeric,$/;"	e	enum:e_token
+numeric	scheme.h	/^						numeric,$/;"	e	enum:e_token
+output	include/lexer.h	/^    token               **output;$/;"	m	struct:s_lexer_state
+output	scheme.h	/^	t_cell				*output;$/;"	m	struct:s_parser_state
+output	scheme.h	/^	t_token				**output;$/;"	m	struct:s_lexer_state
+output_size	include/lexer.h	/^    int                 output_size;$/;"	m	struct:s_lexer_state
+output_size	scheme.h	/^	int					output_size;$/;"	m	struct:s_lexer_state
+parse	parser.c	/^t_cell			*parse(t_token **tokens)$/;"	f
+parse	source/parser.c	/^cell *parse(token **tokens)$/;"	f
+positive_num	scheme.h	/^	unsigned long long	positive_num;$/;"	m	struct:s_parser_state
+quote	include/lexer.h	/^    int                 quote;$/;"	m	struct:s_lexer_state
+quote	scheme.h	/^	int					quote;$/;"	m	struct:s_lexer_state
+quotes	include/lexer.h	/^    int                 quotes;$/;"	m	struct:s_lexer_state
+quotes	scheme.h	/^	int					quotes;$/;"	m	struct:s_lexer_state
+read_eval_files	main.c	/^void			read_eval_files(char **first, char **last)$/;"	f
+read_eval_loop	main.c	/^void			read_eval_loop()$/;"	f
+root	scheme.h	/^	struct s_cell		*root;$/;"	m	struct:s_cell	typeref:struct:s_cell::s_cell
+s_cell	include/parser.h	/^typedef struct          s_cell$/;"	s
+s_cell	scheme.h	/^typedef struct			s_cell$/;"	s
+s_lexer_state	include/lexer.h	/^typedef struct          s_lexer_state$/;"	s
+s_lexer_state	scheme.h	/^typedef struct			s_lexer_state$/;"	s
+s_parser_state	scheme.h	/^typedef struct			s_parser_state$/;"	s
+s_token	include/lexer.h	/^typedef struct          s_token$/;"	s
+s_token	scheme.h	/^typedef struct			s_token$/;"	s
+source	include/lexer.h	/^    char                *source;$/;"	m	struct:s_lexer_state
+source	scheme.h	/^	char				*source;$/;"	m	struct:s_lexer_state
+str	scheme.h	/^	char				*str;$/;"	m	struct:s_parser_state
+string	include/lexer.h	/^                        string,$/;"	e	enum:e_token
+string	scheme.h	/^						string,$/;"	e	enum:e_token
+t_cell	scheme.h	/^}						t_cell;$/;"	t	typeref:struct:s_cell
+t_cell_type	scheme.h	/^}						t_cell_type;$/;"	t	typeref:enum:e_cell_type
+t_lexer_state	scheme.h	/^}						t_lexer_state;$/;"	t	typeref:struct:s_lexer_state
+t_parser_state	scheme.h	/^}						t_parser_state;$/;"	t	typeref:struct:s_parser_state
+t_token	scheme.h	/^}						t_token;$/;"	t	typeref:struct:s_token
+t_token_type	scheme.h	/^}                       t_token_type;$/;"	t	typeref:enum:e_token
+token	include/lexer.h	/^}                       token;$/;"	t	typeref:struct:s_token
+token_type	include/lexer.h	/^}                       token_type;$/;"	t	typeref:enum:e_token
+type	include/lexer.h	/^    token_type          type;$/;"	m	struct:s_token
+type	scheme.h	/^	t_cell_type			type;$/;"	m	struct:s_parser_state
+type	scheme.h	/^	t_cell_type	type;$/;"	m	struct:s_cell
+type	scheme.h	/^	t_token_type		type;$/;"	m	struct:s_token
+value	include/parser.h	/^    long                value;$/;"	m	struct:s_cell
+value	scheme.h	/^	void*				value;$/;"	m	struct:s_cell
+version	main.c	/^const char		*version = "0.01";$/;"	v
+welcome	main.c	/^void			welcome()$/;"	f
