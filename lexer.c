@@ -10,7 +10,7 @@
 /*                                                        /   UNIV -          */
 /*                                               | |  _  / ___ _ _   / |      */
 /*   Created: 2019/10/06 21:03:05 by mfaussur    | |_| || / _ \ ' \  | |      */
-/*   Updated: 2019/10/06 21:24:58 by mfaussur    |____\_, \___/_||_| |_|      */
+/*   Updated: 2019/11/12 16:25:32 by mfaussur    |____\_, \___/_||_| |_|      */
 /*                                                    /__/            .fr     */
 /* ************************************************************************** */
 
@@ -20,17 +20,20 @@
 #include <stdio.h>
 
 #include <scheme.h>
+#include <libft/libft.h>
 
 void			init_token(t_token *in)
 {
 	in->type            = nop;
 	in->content         = malloc(1 * sizeof(char));
+    in->content[0]      = '\0';
 }
 
 void			init_lexer_state(t_lexer_state *state, char *source)
 {
 	state->source       = source;
-	state->output       = malloc(1 * sizeof(t_token*));
+	state->output       = malloc(1 * sizeof(t_list*));
+    state->output[0]    = NULL;
 	state->current_token= malloc(1 * sizeof(t_token));
 	state->output_size  = 0;
 	state->escaped      = 0;
@@ -39,7 +42,6 @@ void			init_lexer_state(t_lexer_state *state, char *source)
 	state->quote        = 0;
 	state->quotes       = 0;
 	state->i            = 0;
-
 	init_token          (state->current_token);
 }
 
@@ -55,9 +57,7 @@ void			flush_char(t_lexer_state *state)
 
 void			flush(t_lexer_state *state)
 {
-	state->output_size  += 1;
-	state->output       = realloc(state->output, state->output_size * sizeof(void*));
-	state->output[state->output_size - 1] = state->current_token;
+	ft_lstadd_back(state->output, ft_lstnew(state->current_token));
 	state->current_token = malloc(sizeof(t_token));
 	init_token(state->current_token);
 }
@@ -77,7 +77,7 @@ void			flush_end(t_lexer_state *state)
 	flush(state);
 }
 
-t_token   **lex(char *source)
+t_list          *lex(char *source)
 {
 	t_lexer_state         state;
 
@@ -192,6 +192,8 @@ t_token   **lex(char *source)
 					flush_char(&state);
 				else
 				{
+                    flush(&state);
+                    init_token(state.current_token);
 					state.current_token->type = string;
 					state.quote = 1;
 				}
@@ -229,39 +231,41 @@ t_token   **lex(char *source)
 		state.i         += 1;
 	}
 	flush(&state);
-	state.current_token->type = eof;
-	flush(&state);
-	return(state.output);
+	return(state.output[0]);
 }
 
-void    dump_tokens(t_token **tokens)
+void        dump_tokens(t_list *tokens)
 {
-	unsigned int		i;
-
-	i = -1;
-	while ((tokens[++i])->type != eof)
-		switch ((tokens[i])->type)
-		{
-			case call:
-				printf("call\t\t\n");
-				break;
-			case end:
-				printf("end\t\t\n");
-				break;
-			case string:
-				printf("str\t\t%s\n", tokens[i]->content);
-				break;
-			case numeric:
-				printf("num\t\t%s\n", tokens[i]->content);
-				break;
-			case identifier:
-				printf("id\t\t%s\n", tokens[i]->content);
-				break;
-			case nop:
-				// printf("nop\t\t\n");
-				break ;
-			default:
-				break ;
-		}
+    if (tokens && tokens->content)
+	    while (TRUE)
+        {
+		    switch (((t_token*)tokens->content)->type)
+		    {
+			    case call:
+				    printf("call\t\t\n");
+				    break;
+			    case end:
+				    printf("end\t\t\n");
+				    break;
+			    case string:
+				    printf("str\t\t%s\n", ((t_token*)tokens->content)->content);
+				    break;
+			    case numeric:
+				    printf("num\t\t%s\n", ((t_token*)tokens->content)->content);
+				    break;
+			    case identifier:
+				    printf("id\t\t%s\n", ((t_token*)tokens->content)->content);
+				    break;
+			    case nop:
+				    printf("nop\t\t\n");
+				    break ;
+			    default:
+				    break ;
+		    }
+            if (!tokens->next)
+                return ;
+            else
+                tokens = tokens->next;
+        }
 }
 

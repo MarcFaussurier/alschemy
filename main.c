@@ -13,6 +13,8 @@
 
 #include <libft/libft.h>
 #include <scheme.h>
+#include <unistd.h>
+#include <fcntl.h>
 
 const char		*version = "0.01";
 
@@ -30,8 +32,22 @@ void			help()
 	ft_putendl("Scheme interpreter help");
 	ft_putendl("Usage: pass no arguments for interative read/eval loop, or files path.");
 	ft_putendl("./scheme");
-	ft_putendl("./scheme filepath1 filepath2 ...");
+    ft_putendl("(+ 6 5) .. or ");
+    ft_putendl("./scheme filepath1 filepath2 ...");
  }
+
+void            interpret(char *input_buffer)
+{
+    t_list      *tokens = lex(input_buffer);
+    ft_putendl("TOKENS: -------------");
+    dump_tokens(tokens);
+    t_cell      *evalme = parse(tokens);
+    ft_putendl("PARSED CELL: --------");
+    dump_cell(evalme);
+    t_cell      *result = eval(evalme);
+    ft_putendl("RESULT: -------------");
+    dump_cell(result);
+}
 
 void			read_eval_loop()
 {
@@ -41,8 +57,15 @@ void			read_eval_loop()
 	while (TRUE)
 	{
 		input_buffer = ft_read(10);
-		// eval
-	}
+        if (!ft_strlen(input_buffer))
+            continue ;
+        else if (!ft_strncmp(input_buffer, "help", 5))
+            help();
+        else if (!ft_strncmp(input_buffer, "exit", 5))
+            break ;
+        else
+            interpret(input_buffer);
+    }
 }
 
 void			read_eval_files(char **first, char **last)
@@ -52,8 +75,8 @@ void			read_eval_files(char **first, char **last)
 	{
 		ft_putstr("current file: ");
 		ft_putendl(*first);
-		// eval
-		first += 1;
+        interpret(ft_read_fd(0, open(*first, O_WRONLY)));
+        first += 1;
 	}
 }
 
@@ -62,7 +85,7 @@ int				main(int argc, char **argv)
 	welcome();
 	if (argc == 1)
 		read_eval_loop();
-	else if (!ft_strncmp(argv[1],"help",4))
+	else if (!ft_strncmp(argv[1],"help",5))
 		help();
 	else
 		read_eval_files(argv + 1, argv + argc - 1);

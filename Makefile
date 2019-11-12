@@ -10,12 +10,14 @@
 #                                                         /   UNIV -           #
 #                                                | |  _  / ___ _ _   / |       #
 #    Created: 2019/10/06 11:23:52 by mfaussur    | |_| || / _ \ ' \  | |       #
-#    Updated: 2019/10/06 21:35:29 by mfaussur    |____\_, \___/_||_| |_|       #
+#    Updated: 2019/11/11 12:27:35 by mfaussur    |____\_, \___/_||_| |_|       #
 #                                                     /__/            .fr      #
 # **************************************************************************** #
 
-CSRC			:=./lexer.c\
-	./main.c
+CSRC		:=	./lexer.c			\
+				./parser.c			\
+				./evaluator.c		\
+				./main.c
 NAME		:= scheme
 DEBUG		:= 0
 RM			:= rm -rf
@@ -43,6 +45,7 @@ bonus:		$(COBJ) $(BONUSOBJ)
 %.o:	%.c		scheme.h
 	$(CC) $(CFLAGS) -c $< -o $@
 $(NAME):	$(COBJ)
+	cd libft && make bonus;
 	$(CC) -o $(NAME) $(COBJ) -L./libft -lft
 .PHONY:
-		all fclean clean re bonus
+	all fclean clean re bonus
