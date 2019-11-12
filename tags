@@ -148,6 +148,7 @@ ft_tolower	libft/ft_tolower.c	/^int			ft_tolower(int c)$/;"	f	typeref:typename:i
 ft_toupper	libft/ft_toupper.c	/^int			ft_toupper(int c)$/;"	f	typeref:typename:int
 g_false	libft/libft.h	/^{g_false, g_true}		t_bool;$/;"	e	enum:e_bool
 g_true	libft/libft.h	/^{g_false, g_true}		t_bool;$/;"	e	enum:e_bool
+get_after_call	parser.c	/^t_list          *get_after_call(t_list *tokens)$/;"	f	typeref:typename:t_list *
 help	main.c	/^void			help()$/;"	f	typeref:typename:void
 i	libft/libft.h	/^	unsigned int		i;$/;"	m	struct:s_split_state	typeref:typename:unsigned int
 i	scheme.h	/^	unsigned int		i;$/;"	m	struct:s_lexer_state	typeref:typename:unsigned int

@@ -73,6 +73,9 @@ void            dump_cell(t_cell *cell)
     {
         dump_cell_type(cell);
         dump_cell_data(cell);
+        ft_putstr("childs: ");
+        ft_putnbr(ft_lstsize(cell->childs) - 1);
+        ft_putendl("");
         if (ft_lstsize(cell->childs) > 1)
         {
             ft_putendl("{");
@@ -82,10 +85,36 @@ void            dump_cell(t_cell *cell)
     }
 }
 
+t_list          *get_after_call(t_list *tokens)
+{
+    int         level;
+    t_bool      updated;
+
+    if (!tokens)
+        return (NULL);
+    updated = FALSE;
+    level = 0;
+    while (TRUE)
+    {
+        if (((t_token*)tokens->content)->type == call)
+        {
+            level += 1;
+            updated = TRUE;
+        }else if (((t_token*)tokens->content)->type == end)
+            level -= 1;
+        if ((updated && (level == 0)))
+        {
+            return (tokens->next);
+        }
+        if (!(tokens = tokens->next))
+            break ;
+    }
+    return (tokens);
+}
+
 t_cell			*parse(t_list *tokens)
 {
     t_cell      *output;
-    t_bool      stopme;
     t_cell      *tmp;
 
     output = malloc(1 * sizeof(t_cell));
@@ -102,17 +131,30 @@ t_cell			*parse(t_list *tokens)
             free(output);
 			output = parse(tokens->next); // should be id
 		    tokens = tokens->next->next;
-            stopme = FALSE;
-            if (tokens)
-                while (!stopme)
+            while (tokens)
+            {
+
+                if (((t_token*)tokens->content)->type == end)
+                    break;
+                else if (((t_token*)tokens->content)->type == nop)
                 {
-                    tmp = parse(tokens);
-                    if (!tmp)
-                        stopme = TRUE;
-                    ft_lstadd_back(&output->childs, ft_lstnew(tmp));
-                    if (!(tokens = tokens->next))
-                        stopme = TRUE ;
+                    tokens = tokens->next;
+                    continue ;
                 }
+                tmp = parse(tokens);
+                if (!tmp)
+                    break ;
+                ft_lstadd_back(&output->childs, ft_lstnew(tmp));
+                if (((t_token*)tokens->content)->type == call)
+                {
+
+                    tokens = get_after_call(tokens);
+                    ft_putstr("after call : ");
+                    dump_tokens(tokens);
+                }
+                else
+                    tokens = tokens->next;
+            }
             break ;
 		case end:
 			return (NULL);

@@ -81,7 +81,38 @@ void			read_eval_files(char **first, char **last)
 }
 
 int				main(int argc, char **argv)
-{
+{/*
+    t_cell      cell;
+    t_cell      cell2;
+    t_cell      cell3;
+    t_cell      cell4;
+    t_cell      cell5;
+
+    cell.type = _identifier;
+    cell.identifier = ft_strdup("*");
+
+    cell2.type = _int;
+    cell2.value = malloc(1*sizeof(int));
+    *(int)cell2.value = 42;
+
+
+
+    cell3.type = _int;
+    cell3.value = malloc(1*sizeof(int));
+    *(int)cell3.value = 42;
+
+
+    cell4.type = _identifier;
+    cell4.identifier = ft_strdup("*");
+
+
+    cell5.type = _int;
+    cell5.value = malloc(1*sizeof(int));
+    *(int)cell5.value = 42;
+
+    cell.childs = ft_lstnew(NULL);
+    ft_lstadd_back(&cell.childs, cell2);
+*/
 	welcome();
 	if (argc == 1)
 		read_eval_loop();
