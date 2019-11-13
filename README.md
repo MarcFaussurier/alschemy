@@ -5,9 +5,9 @@ simple scheme interpreter
 
 TODO LIST:
 
-- [*] lexer
-- [*] parser
-- [*] evaluator (+ (+ 9 8) (+ 8 4 (+ 9 8)) 9)
+- [x] lexer
+- [x] parser
+- [x] evaluator (+ (+ 9 8) (+ 8 4 (+ 9 8)) 9)
 - [ ] super evaluator (manage not found etc)
 - [ ] .ini alike config 
 - [ ] extension via dll/so 
