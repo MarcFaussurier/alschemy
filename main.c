@@ -64,6 +64,15 @@ void			help()
     ft_putendl("./scheme filepath1 filepath2 ...");
  }
 
+t_scope         *create_base_scope()
+{
+    t_scope     *output;
+
+    output = create_scope(NULL);
+    scope_add_back(output, create_func_cell(add, "+"));
+    return (output);
+}
+
 void            interpret(char *input_buffer)
 {
     t_list      *tokens = lex(input_buffer);
@@ -73,31 +82,13 @@ void            interpret(char *input_buffer)
     ft_putendl("PARSED CELL: --------");
     dump_cell(evalme);
 
-
-   t_cell*     (*lambda)(t_cell*);
     t_cell  *result;
-    t_cell  *tmp;
     t_scope     *newscope;
-    newscope = create_scope(NULL);
-    scope_add_back(newscope, create_func_cell(add, "+"));
-    // TODO: eval all childs
-    if ((*(newscope->variables))->content)
-    {
-        ft_putendl(((t_cell*)(*(newscope->variables))->content)->identifier);
-        lambda =  ((t_cell*)(*(newscope->variables))->content)->value;
-        result = lambda(evalme);
-        ft_putendl("RESULT: -------------");
-        dump_cell(result);
+    newscope = create_base_scope();
 
-        tmp =  resolve("+", newscope);
-        lambda = tmp->value;
-        result = lambda(evalme);
-        ft_putendl("RESULT: -------------");
-        dump_cell(result);
-    }
-    //t_cell      *result = eval(evalme, newscope);
-    //ft_putendl("RESULT: -------------");
-    //dump_cell(result);
+    result = eval(evalme, newscope);
+    ft_putendl("RESULT: -------------");
+    dump_cell(result);
 }
 
 void			read_eval_loop()

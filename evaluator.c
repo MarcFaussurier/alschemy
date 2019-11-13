@@ -49,54 +49,68 @@ t_cell      *resolve(char *label, t_scope *scope)
 {
     t_list      *tmp;
 
-    if (!scope || !label || ft_strlen(label) == 0)
-        return (NULL);
-    tmp = *(scope->variables);
-    if (!tmp)
-        return (NULL);
-    while (TRUE)
+    (void) scope;
+    if (0 == ft_lstsize(*(scope->variables)))
     {
-        if (tmp->content)
-        {
-            return (tmp->content);
-        }
-        tmp = tmp->next;
-        if (!tmp)
-            break;
+        if (scope->parent)
+            return (resolve(label, scope->parent));
+        else
+            return (NULL);
     }
-    if (scope->parent)
-        return(resolve(label, scope->parent));
     else
-        return (NULL);
+    {
+        tmp = *(scope->variables);
+        while (TRUE)
+        {
+            if (!(ft_strncmp((char*)((t_cell*)tmp->content)->identifier, label, ft_strlen(label) + 1)))
+            {
+                return (tmp->content);
+            }
+            tmp = tmp->next;
+            if (!tmp)
+                break ;
+        }
+    }
+    return (NULL);
 }
 
 t_cell      *eval(t_cell *input, t_scope *parent)
 {
     t_scope     *scope;
     t_cell      *occ;
-   // t_cell*     (*lambda)(t_cell*);
+    t_cell*     (*lambda)(t_cell*);
+    t_list      *tmp;
 
+    if (!input)
+        return (0);
     scope = create_scope(parent);
+    if (ft_lstsize(input->childs) > 1)
+    {
+        tmp = input->childs;
+        while (TRUE)
+        {
+            tmp->content = eval((t_cell*)tmp->content, scope);
+            tmp = tmp->next;
+            if (!tmp)
+                break ;
+        }
+    }
     if (input->type == _identifier)
     {
-            occ = resolve(input->identifier, scope);
-            if (occ)
-                ft_putendl("ok2");
-            //    occ = (t_cell*)((t_list*)*(scope->variables))->content;
-    //    dump_cell(occ);
-     //   if (occ)
-      /*      switch (occ->type)
+        occ = resolve(input->identifier, scope);
+        if (occ)
+            switch (occ->type)
             {
                 case _function:
-                    lambda = (t_cell*(*)(t_cell*)) occ->value;
-                    return (lambda(eval(input, scope)));
+                    lambda = occ->value;
+                    return (lambda(input));
                 default:
                     return (occ);
-            }*/
+            }
 
     }
 
     // eval childs
 
-    return (0);
+    return (input);
 }
