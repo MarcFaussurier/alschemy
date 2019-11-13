@@ -10,7 +10,7 @@
 /*                                                        /   UNIV -          */
 /*                                               | |  _  / ___ _ _   / |      */
 /*   Created: 2019/11/12 20:10:17 by mfaussur    | |_| || / _ \ ' \  | |      */
-/*   Updated: 2019/11/13 09:34:37 by mfaussur    |____\_, \___/_||_| |_|      */
+/*   Updated: 2019/11/13 09:57:14 by mfaussur    |____\_, \___/_||_| |_|      */
 /*                                                    /__/            .fr     */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void            dump_cell_data(t_cell *cell)
         default:
             break;
     }
-    ft_putstr("\n");
 }
 
 void            dump_cell_childs(t_cell *cell)
@@ -80,7 +79,7 @@ void            dump_cell(t_cell *cell)
     {
         dump_cell_type(cell);
         dump_cell_data(cell);
-        ft_putstr("childs: ");
+        ft_putstr("\tchilds: ");
         ft_putnbr(ft_lstsize(cell->childs) - 1);
         ft_putendl("");
         if (ft_lstsize(cell->childs) > 1)
