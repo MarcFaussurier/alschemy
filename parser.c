@@ -3,13 +3,17 @@
 /*                                                              /             */
 /*   parser.c                                         .::    .:/ .      .::   */
 /*                                                 +:+:+   +:    +:  +:+:+    */
-/*   By: mfaussur <mfaussur@student.le-101.>        +:+   +:    +:    +:+     */
-/*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/11/07 14:25:07 by mfaussur     #+#   ##    ##    #+#       */
-/*   Updated: 2019/11/07 14:45:47 by mfaussur    ###    #+. /#+    ###.fr     */
-/*                                                         /                  */
-/*                                                        /                   */
+/*   Authors: mfaussur                              +:+   +:    +:    +:+     */
+/*   <marc.faussurier@etu.univ-lyon1.fr>           #+#   #+    #+    #+#      */
+/*                                                #+#   ##    ##    #+#       */
+/*                                               ###    #+./ #+    ###.fr     */
+/*                                                        /   UNIV -          */
+/*                                               | |  _  / ___ _ _   / |      */
+/*   Created: 2019/11/12 20:10:17 by mfaussur    | |_| || / _ \ ' \  | |      */
+/*   Updated: 2019/11/13 08:16:59 by mfaussur    |____\_, \___/_||_| |_|      */
+/*                                                    /__/            .fr     */
 /* ************************************************************************** */
+
 
 #include <libft/libft.h>
 #include <scheme.h>
@@ -28,6 +32,9 @@ void            dump_cell_type(t_cell *cell)
             break ;
         case _identifier:
             ft_putstr("ID\t");
+            break;
+        case _function:
+            ft_putstr("FUNC\t");
             break;
         default:
             break;
@@ -126,7 +133,7 @@ t_cell			*parse(t_list *tokens)
 		case identifier:
             output->type = _identifier;
             output->identifier = ft_strdup(((t_token*)tokens->content)->content);
-            break;
+            break ;
 		case call:
             free(output);
 			output = parse(tokens->next); // should be id
@@ -146,12 +153,7 @@ t_cell			*parse(t_list *tokens)
                     break ;
                 ft_lstadd_back(&output->childs, ft_lstnew(tmp));
                 if (((t_token*)tokens->content)->type == call)
-                {
-
                     tokens = get_after_call(tokens);
-                    ft_putstr("after call : ");
-                    dump_tokens(tokens);
-                }
                 else
                     tokens = tokens->next;
             }

@@ -18,6 +18,34 @@
 
 const char		*version = "0.01";
 
+t_cell      *add(t_cell *list)
+{
+    t_cell      *output;
+    t_list      *tmp;
+
+    output = malloc(1 * sizeof(t_cell));
+    if (!output)
+        return (NULL);
+    output->type = _int;
+    output->value = malloc(1*sizeof(int));
+    output->childs= ft_lstnew(NULL);
+    *((int*)output->value) = 0;
+    if (list)
+    {
+        tmp = list->childs->next;
+        if (tmp && tmp->content)
+            while (TRUE)
+            {
+                *((int*)output->value) += *((int*)((t_cell*)tmp->content)->value);
+                tmp = tmp->next;
+                if (!tmp)
+                    break ;
+            }
+    }
+    return (output);
+}
+
+
 void			welcome()
 {
 	ft_putendl("----------------------");
@@ -44,9 +72,32 @@ void            interpret(char *input_buffer)
     t_cell      *evalme = parse(tokens);
     ft_putendl("PARSED CELL: --------");
     dump_cell(evalme);
-    t_cell      *result = eval(evalme);
-    ft_putendl("RESULT: -------------");
-    dump_cell(result);
+
+
+   t_cell*     (*lambda)(t_cell*);
+    t_cell  *result;
+    t_cell  *tmp;
+    t_scope     *newscope;
+    newscope = create_scope(NULL);
+    scope_add_back(newscope, create_func_cell(add, "+"));
+    // TODO: eval all childs
+    if ((*(newscope->variables))->content)
+    {
+        ft_putendl(((t_cell*)(*(newscope->variables))->content)->identifier);
+        lambda =  ((t_cell*)(*(newscope->variables))->content)->value;
+        result = lambda(evalme);
+        ft_putendl("RESULT: -------------");
+        dump_cell(result);
+
+        tmp =  resolve("+", newscope);
+        lambda = tmp->value;
+        result = lambda(evalme);
+        ft_putendl("RESULT: -------------");
+        dump_cell(result);
+    }
+    //t_cell      *result = eval(evalme, newscope);
+    //ft_putendl("RESULT: -------------");
+    //dump_cell(result);
 }
 
 void			read_eval_loop()

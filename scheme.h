@@ -10,7 +10,7 @@
 /*                                                        /   UNIV -          */
 /*                                               | |  _  / ___ _ _   / |      */
 /*   Created: 2019/10/06 21:07:27 by mfaussur    | |_| || / _ \ ' \  | |      */
-/*   Updated: 2019/11/12 15:20:03 by mfaussur    |____\_, \___/_||_| |_|      */
+/*   Updated: 2019/11/13 07:45:43 by mfaussur    |____\_, \___/_||_| |_|      */
 /*                                                    /__/            .fr     */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct			s_token
 typedef struct          s_scope
 {
 
-    t_list              *variables;
+    t_list              **variables;
     struct s_scope*     parent;
 
 }                       t_scope;
@@ -94,6 +94,13 @@ void					flush_end(t_lexer_state *state);
 t_list                  *lex(char *source);
 void					dump_tokens(t_list *tokens);
 t_cell					*parse(t_list *tokens);
-t_cell					*eval(t_cell *input);
+t_cell					*eval(t_cell *input, t_scope *scope);
 void                    dump_cell(t_cell *input);
+t_scope                 *create_scope(t_scope *parent);
+t_cell                  *create_cell(t_cell_type type, void* value, char *identifier);
+t_cell                  *create_int_cell(int n, char *label);
+t_cell                  *create_func_cell(t_cell* (*arg)(t_cell*), char *label);
+t_cell                  *create_string_cell(char *str, char *label);
+void                    scope_add_back(t_scope *scope,t_cell *value);
+t_cell                  *resolve(char *label, t_scope *scope);
 #endif
