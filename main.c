@@ -49,7 +49,7 @@ t_cell      *add(t_cell *list)
 void			welcome()
 {
 	ft_putendl("----------------------");
-	ft_putendl("Scheme interpreter");
+	ft_putendl("Alschemy interpreter");
 	ft_putstr("version: ");
 	ft_putendl((char*)version);
 	ft_putendl("----------------------");
