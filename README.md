@@ -1,7 +1,7 @@
 # alschemy
 simple scheme interpreter
 
-![alt text](https://github.com/MarcFaussurier/scheme/blob/master/demo.png?raw=true)
+![alt text](https://github.com/MarcFaussurier/scheme/blob/master/demo_add.png?raw=true)
 
 TODO LIST:
 
