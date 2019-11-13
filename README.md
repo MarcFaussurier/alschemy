@@ -1,4 +1,4 @@
-# scheme
+# alschemy
 simple scheme interpreter
 
 ![alt text](https://github.com/MarcFaussurier/scheme/blob/master/demo.png?raw=true)
