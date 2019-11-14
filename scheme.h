@@ -10,7 +10,7 @@
 /*                                                        /   UNIV -          */
 /*                                               | |  _  / ___ _ _   / |      */
 /*   Created: 2019/10/06 21:07:27 by mfaussur    | |_| || / _ \ ' \  | |      */
-/*   Updated: 2019/11/13 07:45:43 by mfaussur    |____\_, \___/_||_| |_|      */
+/*   Updated: 2019/11/14 13:43:35 by mfaussur    |____\_, \___/_||_| |_|      */
 /*                                                    /__/            .fr     */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ typedef enum			e_cell_type
 						_unsigned_char,
 						_function,
 						_ptr,
-                        _identifier
+                        _identifier,
+                        _dyn_identifier
 }						t_cell_type;
 typedef struct			s_cell
 {

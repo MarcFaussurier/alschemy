@@ -10,7 +10,7 @@
 /*                                                        /   UNIV -          */
 /*                                               | |  _  / ___ _ _   / |      */
 /*   Created: 2019/11/12 20:10:17 by mfaussur    | |_| || / _ \ ' \  | |      */
-/*   Updated: 2019/11/13 09:57:14 by mfaussur    |____\_, \___/_||_| |_|      */
+/*   Updated: 2019/11/14 14:16:14 by mfaussur    |____\_, \___/_||_| |_|      */
 /*                                                    /__/            .fr     */
 /* ************************************************************************** */
 
@@ -36,10 +36,34 @@ void            dump_cell_type(t_cell *cell)
         case _function:
             ft_putstr("FUNC\t");
             break;
+        case _dyn_identifier:
+            ft_putstr("DYNID\t");
+            break;
         default:
             break;
     }
 }
+
+void            dump_cell_childs(t_cell *cell)
+{
+    t_list      *data;
+
+    data = cell->childs;
+
+    if (data)
+    {
+        ft_putendl("{");
+        while (TRUE)
+        {
+            if (data->content)
+                dump_cell((t_cell*)data->content);
+            if (!(data = data->next))
+                break ;
+        }
+        ft_putendl("}");
+    }
+}
+
 
 void            dump_cell_data(t_cell *cell)
 {
@@ -54,25 +78,13 @@ void            dump_cell_data(t_cell *cell)
         case _identifier:
             ft_putstr(cell->identifier);
             break;
+        case _dyn_identifier:
+            dump_cell((t_cell*)cell->value);
+            break;
         default:
             break;
     }
 }
-
-void            dump_cell_childs(t_cell *cell)
-{
-    t_list      *data;
-
-    data = cell->childs;
-    while (TRUE)
-    {
-        if (data->content && ((t_cell*)data->content)->type != nop)
-            dump_cell((t_cell*)data->content);
-        if (!(data = data->next))
-            break ;
-    }
-}
-
 void            dump_cell(t_cell *cell)
 {
     if (cell && cell->type != nop)
@@ -82,11 +94,11 @@ void            dump_cell(t_cell *cell)
         ft_putstr("\tchilds: ");
         ft_putnbr(ft_lstsize(cell->childs) - 1);
         ft_putendl("");
-        if (ft_lstsize(cell->childs) > 1)
+        if (cell->childs)
         {
             ft_putendl("{");
             dump_cell_childs(cell);
-            ft_putendl("}");
+           ft_putendl("}");
         }
     }
 }
@@ -135,8 +147,23 @@ t_cell			*parse(t_list *tokens)
             break ;
 		case call:
             free(output);
-			output = parse(tokens->next); // should be id
-		    tokens = tokens->next->next;
+            tokens = tokens->next;
+            while (((t_token*)tokens->content)->type == nop)
+                tokens = tokens->next;
+            if (((t_token*)tokens->content)->type == call)
+            {
+                output = create_cell(_dyn_identifier, parse(tokens), "dynid");
+                tokens = get_after_call(tokens);
+                ft_putendl("tokens:");
+                dump_tokens(tokens);
+
+            }
+            else
+            {
+
+			    output = parse(tokens); // should be id
+                tokens = tokens->next;
+            }
             while (tokens)
             {
 
