@@ -10,7 +10,7 @@
 /*                                                        /   UNIV -          */
 /*                                               | |  _  / ___ _ _   / |      */
 /*   Created: 2019/11/12 20:10:17 by mfaussur    | |_| || / _ \ ' \  | |      */
-/*   Updated: 2019/11/14 14:16:14 by mfaussur    |____\_, \___/_||_| |_|      */
+/*   Updated: 2019/11/14 14:43:47 by mfaussur    |____\_, \___/_||_| |_|      */
 /*                                                    /__/            .fr     */
 /* ************************************************************************** */
 
@@ -48,19 +48,19 @@ void            dump_cell_childs(t_cell *cell)
 {
     t_list      *data;
 
-    data = cell->childs;
+    data = *(cell->childs);
 
     if (data)
     {
-        ft_putendl("{");
         while (TRUE)
         {
             if (data->content)
+            {
                 dump_cell((t_cell*)data->content);
+            }
             if (!(data = data->next))
                 break ;
         }
-        ft_putendl("}");
     }
 }
 
@@ -79,7 +79,10 @@ void            dump_cell_data(t_cell *cell)
             ft_putstr(cell->identifier);
             break;
         case _dyn_identifier:
+            ft_putendl("");
+            ft_putendl("{");
             dump_cell((t_cell*)cell->value);
+            ft_putendl("}");
             break;
         default:
             break;
@@ -92,9 +95,9 @@ void            dump_cell(t_cell *cell)
         dump_cell_type(cell);
         dump_cell_data(cell);
         ft_putstr("\tchilds: ");
-        ft_putnbr(ft_lstsize(cell->childs) - 1);
+        ft_putnbr(ft_lstsize(*(cell->childs)));
         ft_putendl("");
-        if (cell->childs)
+        if (cell->childs && ft_lstsize(*(cell->childs)))
         {
             ft_putendl("{");
             dump_cell_childs(cell);
@@ -135,10 +138,9 @@ t_cell			*parse(t_list *tokens)
     t_cell      *output;
     t_cell      *tmp;
 
-    output = malloc(1 * sizeof(t_cell));
+    output = create_cell(_int, NULL, "");
     if (!output || !tokens)
         return (NULL);
-    output->childs = ft_lstnew(NULL);
     switch (((t_token*)tokens->content)->type)
 	{
 		case identifier:
@@ -177,7 +179,7 @@ t_cell			*parse(t_list *tokens)
                 tmp = parse(tokens);
                 if (!tmp)
                     break ;
-                ft_lstadd_back(&output->childs, ft_lstnew(tmp));
+                ft_lstadd_back(output->childs, ft_lstnew(tmp));
                 if (((t_token*)tokens->content)->type == call)
                     tokens = get_after_call(tokens);
                 else

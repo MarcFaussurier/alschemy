@@ -23,18 +23,15 @@ t_cell      *add(t_cell *list)
     t_cell      *output;
     t_list      *tmp;
 
-    output = malloc(1 * sizeof(t_cell));
+    output = create_cell(_int, malloc(sizeof(int)), "");
     if (!output)
         return (NULL);
-    output->type = _int;
-    output->value = malloc(1*sizeof(int));
-    output->childs= ft_lstnew(NULL);
     *((int*)output->value) = 0;
-    if (list)
+    if (list && *(list->childs))
     {
-        tmp = list->childs->next;
-        if (tmp && tmp->content)
-            while (TRUE)
+        tmp = (*(list->childs));
+        if (tmp)
+        while (TRUE)
             {
                 *((int*)output->value) += *((int*)((t_cell*)tmp->content)->value);
                 tmp = tmp->next;

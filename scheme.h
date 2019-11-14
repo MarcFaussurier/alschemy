@@ -10,7 +10,7 @@
 /*                                                        /   UNIV -          */
 /*                                               | |  _  / ___ _ _   / |      */
 /*   Created: 2019/10/06 21:07:27 by mfaussur    | |_| || / _ \ ' \  | |      */
-/*   Updated: 2019/11/14 13:43:35 by mfaussur    |____\_, \___/_||_| |_|      */
+/*   Updated: 2019/11/14 14:31:37 by mfaussur    |____\_, \___/_||_| |_|      */
 /*                                                    /__/            .fr     */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct			s_cell
 	void*				value;
 	t_bool				locked;
 	struct s_cell		*root;
-	t_list				*childs;
+	t_list				**childs;
 }						t_cell;
     // - IMPLEMENTATION   SPECIFIC
 typedef struct			s_lexer_state

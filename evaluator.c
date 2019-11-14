@@ -21,6 +21,8 @@ t_cell      *create_cell(t_cell_type type, void* value, char *identifier)
     output->value = value;
     output->type = type;
     output->identifier = identifier;
+    output->childs = malloc (1 * sizeof(t_list*));
+    *(output->childs) = NULL;
     return (output);
 }
 
@@ -84,9 +86,9 @@ t_cell      *eval(t_cell *input, t_scope *parent)
     if (!input)
         return (0);
     scope = create_scope(parent);
-    if (ft_lstsize(input->childs) > 1)
+    if (ft_lstsize(*(input->childs)) > 0)
     {
-        tmp = input->childs;
+        tmp = *(input->childs);
         while (TRUE)
         {
             tmp->content = eval((t_cell*)tmp->content, scope);
