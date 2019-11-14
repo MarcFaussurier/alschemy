@@ -82,6 +82,7 @@ t_cell      *eval(t_cell *input, t_scope *parent)
     t_cell      *occ;
     t_cell*     (*lambda)(t_cell*);
     t_list      *tmp;
+    t_cell      *tmp2;
 
     if (!input)
         return (0);
@@ -109,7 +110,26 @@ t_cell      *eval(t_cell *input, t_scope *parent)
                 default:
                     return (occ);
             }
-
+        else
+        {
+            ft_putstr("identifier not found: ");
+            ft_putstr(input->identifier);
+            return (0);
+        }
+    }
+    if (input->type == _dyn_identifier && input->value)
+    {
+        tmp2 = eval(input->value, scope);
+        if (tmp2 && tmp2->value && tmp2->type == _function)
+        {
+            lambda = tmp2->value;
+            return (lambda(input));
+        }
+        else
+        {
+            ft_putendl("Error dynanic identifier result type should be _function");
+            return (0);
+        }
     }
 
     // eval childs
