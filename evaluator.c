@@ -113,7 +113,7 @@ t_cell      *eval(t_cell *input, t_scope *parent)
         else
         {
             ft_putstr("identifier not found: ");
-            ft_putstr(input->identifier);
+            ft_putendl(input->identifier);
             return (0);
         }
     }
