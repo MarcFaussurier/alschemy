@@ -8,7 +8,7 @@ TODO LIST:
 - [x] lexer
 - [x] parser
 - [x] evaluator (+ (+ 9 8) (+ 8 4 (+ 9 8)) 9)
-- [x] dynamic identifier ((if (true) (+) (-)) 10 5)
+- [x] dynamic identifier ((if true + -) 10 5)
 - [x] super evaluator (manage not found etc)
 - [ ] .ini alike config 
 - [ ] extension via dll/so 
