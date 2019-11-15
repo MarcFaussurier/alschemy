@@ -90,7 +90,7 @@ void            dump_cell_data(t_cell *cell)
 }
 void            dump_cell(t_cell *cell)
 {
-    if (cell && cell->type != nop)
+    if (cell)
     {
         dump_cell_type(cell);
         dump_cell_data(cell);
